@@ -1,7 +1,7 @@
 
 const images = ['images/confront.png', 'images/warsawjs.png'];
 const gallery = document.getElementById('images')
-const fav = document.getElementById('show-favourites')
+const showFavBtn = document.getElementById('show-favourites')
 
 class Image {
 	constructor(path){
@@ -22,11 +22,15 @@ class Image {
 	}
 
 	isFavourite(){
-		return this.newImage.classList.contains('image--favourite')
+		this.newImage.classList.contains('image--favourite')
 	}
 
 	toggleFavourite(){
 		this.newImage.classList.toggle('image--favourite');
+	}
+
+	sort(){
+		
 	}
 }
 
@@ -37,7 +41,7 @@ function showFav(){
 const galleryElements = images.map(photo => new Image(photo))
 galleryElements.forEach(photo => photo.show());
 
-fav.addEventListener('click', showFav)
+showFavBtn.addEventListener('click', showFav)
 
 
 

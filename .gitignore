@@ -2,6 +2,10 @@
 /node_modules
 /other
 
+dist
+.idea
+.cache
+
 # testing
 /coverage
 

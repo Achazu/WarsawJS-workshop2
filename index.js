@@ -1,45 +1,35 @@
+import image1 from './images/confront.png';
+import image2 from './images/warsawjs.png';
+import {
+	Image
+} from './image.js';
 
-const images = ['images/confront.png', 'images/warsawjs.png'];
+const images = [image1, image2];
 const gallery = document.getElementById('images')
 const showFavBtn = document.getElementById('show-favourites')
+const fileInput = document.getElementById('file-input')
 
-class Image {
-	constructor(path){
-		this.path = path
-	}
+const galleryElements = images.map(photo => new Image(photo))
+galleryElements.forEach(photo => photo.show(gallery));
 
-	show(){
-		this.newImage = document.createElement('img');
-		
-		this.newImage.setAttribute('src', this.path);	
-		gallery.appendChild(this.newImage);
-		
-		this.newImage.addEventListener('click', () => this.toggleFavourite());
-	}
-
-	hide(){
-		this.newImage.style.display = 'none';
-	}
-
-	isFavourite(){
-		this.newImage.classList.contains('image--favourite')
-	}
-
-	toggleFavourite(){
-		this.newImage.classList.toggle('image--favourite');
-	}
-
-	sort(){
-		
-	}
-}
-
-function showFav(){
+function showFav() {
 	galleryElements.filter(photo => !photo.isFavourite(photo)).forEach(photo => photo.hide());
 }
 
-const galleryElements = images.map(photo => new Image(photo))
-galleryElements.forEach(photo => photo.show());
+fileInput.onchange = () => {
+	if (fileInput.files && fileInput.files[0]) {
+		const reader = new FileReader();
+
+		reader.onload = function (e) {
+			// dodajemy e.target.result
+			let item = new Image(e.target.result)
+			galleryElements.push(item)
+			item.show(gallery)
+		};
+
+		reader.readAsDataURL(fileInput.files[0]);
+	}
+};
 
 showFavBtn.addEventListener('click', showFav)
 
